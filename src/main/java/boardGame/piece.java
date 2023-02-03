@@ -1,15 +1,15 @@
 package boardGame;
 
-public class piece {
+public class Piece {
     protected Position position;
-    private board board;
+    private Board board;
 
-    public piece(board board) {
+    public Piece(Board board) {
         this.board = board;
         position= null;
     }
 
-    protected board getBoard() {
+    protected Board getBoard() {
         return board;
     }
 
