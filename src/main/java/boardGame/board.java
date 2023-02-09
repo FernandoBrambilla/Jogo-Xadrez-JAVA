@@ -7,7 +7,7 @@ public class Board {
 
     public Board(int rows, int columns) {
         if(rows<1 || columns<1){
-            throw new BoardExeption("Erro ao criar Tabuleiro:"
+            throw new BoardException("Erro ao criar Tabuleiro:"
                     + " É necessário que haja uma linha e uma coluna");
         }
         this.rows = rows;
@@ -25,23 +25,36 @@ public class Board {
    
     public Piece piece(int row, int column){
         if(!positionExists(row, column)){
-            throw new BoardExeption("Posição não exite no tabuleiro");
+            throw new BoardException("Posição não exite no tabuleiro");
         }
         return pieces[row][column];
         
     }
     public Piece piece(Position position){
         if(!positionExists(position)){
-            throw new BoardExeption("Posição não exite no tabuleiro");
+            throw new BoardException("Posição não exite no tabuleiro");
         }
         return pieces[position.getRow()][position.getColumn()];
     }
     public void placePiece(Piece piece, Position position){
         if(thereIsAPiece(position)){
-            throw new BoardExeption("Já exite uma peça na posição: "+position);
+            throw new BoardException("Já exite uma peça na posição: "+position);
         }
         pieces[position.getRow()][position.getColumn()]=piece;
         piece.position=position;
+    }
+    
+    public Piece removePiece (Position position){
+        if(!positionExists(position)){
+            throw new BoardException("Posição não exite no tabuleiro");
+        }
+        if (piece(position)== null){
+            return null;
+        }
+        Piece aux= piece(position);
+        aux.position= null;
+        pieces[position.getRow()][position.getColumn()]=null; 
+        return aux;
     }
     
     public boolean positionExists (int row, int column){
@@ -55,7 +68,7 @@ public class Board {
     
     public boolean thereIsAPiece(Position position){
         if(!positionExists(position)){
-            throw new BoardExeption("Posição não exite no tabuleiro");
+            throw new BoardException("Posição não exite no tabuleiro");
         }
         return piece(position)!=null;
     }
