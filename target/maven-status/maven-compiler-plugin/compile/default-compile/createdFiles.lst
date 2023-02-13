@@ -1,1 +1,13 @@
-application\jogoxadez\Program.class
+chess\ChessMatch.class
+chess\ChessPiece.class
+chess\ChessPosition.class
+chess\Color.class
+boardGame\BoardException.class
+application\jogoxadrez\UI.class
+chess\pieces\King.class
+boardGame\Board.class
+boardGame\Position.class
+application\jogoxadrez\Program.class
+boardGame\Piece.class
+chess\ChessException.class
+chess\pieces\Rook.class
