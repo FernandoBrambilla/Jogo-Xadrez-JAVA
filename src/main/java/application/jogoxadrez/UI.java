@@ -12,8 +12,6 @@ import java.util.stream.Collectors;
 
 public class UI {
 
-	// https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println
-
 	public static final String ANSI_RESET = "\u001B[0m";
 	public static final String ANSI_BLACK = "\u001B[30m";
 	public static final String ANSI_RED = "\u001B[31m";
@@ -45,7 +43,7 @@ public class UI {
             return new ChessPosition(column, row);
             }
             catch (RuntimeException e){
-                throw new InputMismatchException("Erro lendo prosição, valores válidos de A1 a H8");  
+                throw new InputMismatchException("Erro lendo posição, valores válidos de A1 a H8");  
             }
         }    
         
@@ -54,9 +52,16 @@ public class UI {
             System.out.println();
             printCapturedPieces(captured);
             System.out.println("Turno: "+chessMatch.getTurn());
-            System.out.println("Esperando Jogador: "+ chessMatch.getCurrentPlayer());
-            if(chessMatch.getCheck()){
-                System.out.println("Cheque-mate!");
+            if(!chessMatch.getCheckMate()){
+                System.out.println("Esperando Jogador: "+ chessMatch.getCurrentPlayer());
+                System.out.println("-----------------");
+                    if(chessMatch.getCheck()){
+                        System.out.println("Cheque!");
+                }
+            }
+            else{
+                System.out.println("CHEQUE-MATE!");
+                System.out.println("VENCEDOR: "+chessMatch.getCurrentPlayer());
             }
         }
         
@@ -105,15 +110,15 @@ public class UI {
         private static void printCapturedPieces(List<ChessPiece> captured){
             List<ChessPiece> white = captured.stream().filter(x -> x.getColor() == Color.WHITE).collect(Collectors.toList());
             List<ChessPiece> black = captured.stream().filter(x -> x.getColor() == Color.BLACK).collect(Collectors.toList());
-            System.out.println("Peças Capituradas");
-            System.out.println("------------------");
+            System.out.println("-----------------");
+            System.out.println("Peças Capturadas"); 
             System.out.print(ANSI_WHITE);
             System.out.println(Arrays.toString(white.toArray()));
             System.out.print(ANSI_RESET);
-              System.out.print(ANSI_YELLOW);
+            System.out.print(ANSI_YELLOW);
             System.out.println(Arrays.toString(black.toArray()));
             System.out.print(ANSI_RESET);
-        
+            System.out.println("-----------------");
         
         }
     
