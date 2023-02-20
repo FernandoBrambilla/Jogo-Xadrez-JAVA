@@ -21,7 +21,6 @@ public class ChessMatch {
     private boolean checkMate;
     private ChessPiece enPassantVulnerable;
     private ChessPiece promoted;
-    
     private List<Piece> piecesOnTheBoard = new ArrayList<>();
     private List<Piece> capturedPieces = new ArrayList<>();
     
@@ -78,7 +77,6 @@ public class ChessMatch {
         validateSourcePosition(source);
         validateTargetPosition(source, target);
         Piece capturedPiece= makeMove(source, target);
-       
         if(testCheck(currentPlayer)){
             undoMove(source, target, capturedPiece);
             throw new ChessException("Você não pode se colocar em cheque.");
@@ -89,12 +87,11 @@ public class ChessMatch {
         promoted = null;
         if(movedPiece instanceof Pawn){
             if((movedPiece.getColor()== Color.WHITE && target.getRow() == 0) || (movedPiece.getColor() == Color.BLACK && target.getRow() == 7)){
-            promoted = (ChessPiece)board.piece(target);
-            promoted = replacePromotedPiece("Q");
+                promoted = (ChessPiece)board.piece(target);
+                promoted = replacePromotedPiece("Q");
+            }
         }
-            
-            
-        }
+        
         check = (testCheck(opponent(currentPlayer)))?true:false;
         if(testCheckMate(opponent(currentPlayer))){
             checkMate = true;
@@ -124,9 +121,6 @@ public class ChessMatch {
         board.placePiece(newPiece, pos);
         piecesOnTheBoard.add(newPiece);
         return newPiece;
-        
-        
-        
     }
     
     private ChessPiece newPiece(String type, Color color){
@@ -134,7 +128,6 @@ public class ChessMatch {
         if(type.equals("C")) return new Knight(board, color);
         if(type.equals("Q")) return new Queen(board, color);
         return new Rook(board, color);
-        
     }
     
     private Piece makeMove (Position source, Position target){
@@ -156,7 +149,7 @@ public class ChessMatch {
             rook.increaseMoveCount();
         }
         
-         //movimento especial castling lado rainha
+        //movimento especial castling lado rainha
         if(p instanceof King && target.getColumn() == source.getColumn()-2){
             Position sourceT = new Position(source.getRow(), source.getColumn()-4);
             Position targetT = new Position(source.getRow(), source.getColumn()-1);
@@ -180,8 +173,6 @@ public class ChessMatch {
                 piecesOnTheBoard.remove(capturedPiece);
             }
         }
-        
-        
         return capturedPiece;
     }
     
@@ -226,8 +217,6 @@ public class ChessMatch {
                 board.placePiece(paw, pawPosition);
             }
         }
-        
-        
     }
     
     private void validateSourcePosition(Position position){
@@ -286,7 +275,7 @@ public class ChessMatch {
     
     public boolean testCheckMate (Color color) throws IllegalAccessException{
         if(!testCheck(color)){
-        return false;
+            return false;
         }
         List<Piece> list = piecesOnTheBoard.stream().filter(x -> ((ChessPiece)x).getColor() == color).collect(Collectors.toList());
         for(Piece p : list){
@@ -302,7 +291,6 @@ public class ChessMatch {
                         if(!testCheck){
                             return false;
                         }
-                    
                     }
                 }
             }
@@ -310,8 +298,8 @@ public class ChessMatch {
         return true;
     }
     
-    
     private void initialSetup(){
+        
         //peças brancas
        	placeNewPiece('a', 1, new Rook(board, Color.WHITE));
         placeNewPiece('b', 1, new Knight(board, Color.WHITE));

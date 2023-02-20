@@ -11,8 +11,6 @@ public class Rook extends ChessPiece{
         super(color, board);
     }
 
-    
-    
     @Override
     public String toString(){
         return "T";
