@@ -9,8 +9,6 @@ import chess.pieces.King;
 import chess.pieces.Knight;
 import chess.pieces.Pawn;
 import chess.pieces.Queen;
-import com.sun.net.httpserver.Filter;
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -118,9 +116,6 @@ public class ChessMatch {
     public ChessPiece replacePromotedPiece(String type){
         if(promoted == null){
             throw new IllegalStateException("Não há peça para ser promovida.");
-        }
-        if (!type.equals("B") && !type.equals("C") && !type.equals("T") && !type.equals("Q")){
-            throw new InvalidParameterException("Peça inválida para promoção");
         }
         Position pos = promoted.getChesPosition().toPosition();
         Piece p = board.removePiece(pos);
